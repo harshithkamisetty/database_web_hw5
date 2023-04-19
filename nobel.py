@@ -34,7 +34,7 @@ def list_nations():
     for row in qres:
         name = str(row.nation).split('/')[-1]
         nation.append(name)
-    return jsonify(nation)
+    return jsonify(sorted(nation))
 
 
 #GET: Return sorted names of all nobel categories
@@ -58,7 +58,7 @@ def list_categories():
         category = str(row.wonprice).split('/')[-4]
         unique_categories.add(category)
     unique_categories=list(unique_categories)    
-    return jsonify(unique_categories)
+    return jsonify(sorted(unique_categories))
 
 
 #GET: Return sorted years nobels are awarded
@@ -84,7 +84,7 @@ def list_years():
         unique_year.add(year)
     unique_year=list(unique_year)
     
-    return jsonify(unique_year)
+    return jsonify(sorted(unique_year))
 
 #GET: Return list of all nobel winners for the given year
 @app.route("/nobel/", methods=['GET', 'POST'])
@@ -112,7 +112,7 @@ def list_winner_year():
             #print(row)
             name = str(row.name)
             winners.append(name)
-        return jsonify(winners)
+        return jsonify(sorted(winners))
     
     if year and category:
 
@@ -146,7 +146,7 @@ def list_winner_nation():
                 winner_name = winner_name.split("http", 1)[0]
                 winners.append(winner_name)
         print(winners)
-        return jsonify(winners)
+        return jsonify(sorted(winners))
 
 #GET: Return list of all nobel winners for the given category
 @app.route("/nobel/categorysearch/", methods=['GET', 'POST'])
@@ -174,7 +174,7 @@ def list_winner_category():
             winner_name = winner_name.split("http", 1)[0]
             winners.append(winner_name)
     #print(len(winners))
-    return jsonify(winners)
+    return jsonify(sorted(winners))
 
 
 #GET: Return list of all nobel winners for the given year and category
@@ -202,7 +202,7 @@ def list_winner_year_category(year,category):
             winner_name = row[0] + " " + row[1]
             winner_name = winner_name.split("http", 1)[0]
             winners.append(winner_name)
-    return jsonify(winners)
+    return jsonify(sorted(winners))
 
 @app.route("/nobeldetails/")
 def getDetails():
