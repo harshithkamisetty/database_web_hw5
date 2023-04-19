@@ -31,6 +31,24 @@
     }
   </style>
 </head>
+
+  
+  <script>
+    $(document).ready(function() {
+      $.get('/nobel/nations', function(data) {
+        console.log("hello")
+        var options = data;
+        var dropdown = $('#my_dropdown');
+        $.each(options, function(index, value) {
+          dropdown.append($('<option/>', {
+            value: value,
+            text: value
+          }));
+        });
+      });
+    });
+  </script>
+  
 <body>
 
 <div class="container">
@@ -42,10 +60,13 @@
         <td>
           <div class="form-group">
             <select class="form-select selectpicker" data-live-search="true" title="Nationality">
-              {% for nation in nationality %}
+           
               <option value="{{nation}}">{{nation}}</option>
-              {% endfor %}
+            
             </select>
+            <select  class="form-select selectpicker" data-live-search="true" id="my_dropdown">
+                <option value="">Select an option</option>
+              </select>
           </div>
         </td>
         <td>
@@ -90,4 +111,6 @@
             </select>
           </div>
           <div class="form-group">
-            <select class="form-select selectpicker" data-live-search="true" title="Year" data-actions
+            
+  </body>
+  </html>
