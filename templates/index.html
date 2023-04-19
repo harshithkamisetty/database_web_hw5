@@ -8,7 +8,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+</head>
   <style>
     .container {
       max-width: 800px;
@@ -31,14 +31,35 @@
     .form-select {
       min-width: 150px;
     }
+    li:hover {
+  color: blue;
+  cursor: pointer;
+}
   </style>
 </head>
 
   
 <script>
   $(document).ready(function() {
+
+    $.get('/nobel/years', function(data) {
+      console.log("years")
+      var options = data;
+      var dropdown = $('#my_dropdown2, #my_dropdown5');
+      $.each(options, function(index, value) {
+        dropdown.append($('<option/>', {
+          value: value,
+          text: value
+        }));
+      });
+    });
+    setTimeout(fun1, 1000);
+    setTimeout(fun2, 1000);
+  });
+
+  function fun1() {
     $.get('/nobel/nations', function(data) {
-      console.log("hello")
+      console.log("nations")
       var options = data;
       var dropdown = $('#my_dropdown');
       $.each(options, function(index, value) {
@@ -48,7 +69,90 @@
         }));
       });
     });
-  });
+}
+
+function fun2() {
+    $.get('/nobel/categories', function(data) {
+      console.log("categories")
+      var options = data;
+      var dropdown = $('#my_dropdown3, #my_dropdown4');
+      $.each(options, function(index, value) {
+        dropdown.append($('<option/>', {
+          value: value,
+          text: value
+        }));
+      });
+    });
+}
+
+function disp(text) {
+  console.log(text); 
+  
+  window.location.href = "/nobeldetails/?name="+text;
+}
+
+function nationquery() {
+    var nat = document.getElementById("my_dropdown").value;
+    console.log(nat);
+    // window.location.href = 'search.html';
+    $.get('/nobel/nations/?nation='+ nat, function(data) {
+      console.log(data)
+      $('#search').empty();
+    var ul = $('<ul>');
+    $.each(data, function(index, item) {
+      ul.append($('<li>').text(item).attr('onclick', 'disp(this.textContent)'));
+    });
+    $('#search').append(ul);
+    });
+}
+
+function yearquery() {
+    var nat = document.getElementById("my_dropdown2").value;
+    console.log(nat);
+    // window.location.href = 'search.html';
+    $.get('/nobel/?year='+ nat, function(data) {
+      console.log(data)
+      $('#search').empty();
+    var ul = $('<ul>');
+    $.each(data, function(index, item) {
+      ul.append($('<li>').text(item).attr('onclick', 'disp(this.textContent)'));
+    });
+    $('#search').append(ul);
+    });
+}
+
+
+function categoryquery() {
+    var nat = document.getElementById("my_dropdown3").value;
+    console.log(nat);
+    // window.location.href = 'search.html';
+    $.get('/nobel/categorysearch/?category='+ nat, function(data) {
+      console.log(data)
+      $('#search').empty();
+    var ul = $('<ul>');
+    $.each(data, function(index, item) {
+      ul.append($('<li>').text(item).attr('onclick', 'disp(this.textContent)'));
+    });
+    $('#search').append(ul);
+    });
+}
+
+function yearcaterquery() {
+    var ye = document.getElementById("my_dropdown5").value;
+    var cat = document.getElementById("my_dropdown4").value;
+    console.log(cat);
+    // window.location.href = 'search.html';
+    $.get('/nobel/?year='+ ye +'&category='+cat, function(data) {
+      console.log(data)
+      $('#search').empty();
+    var ul = $('<ul>');
+    $.each(data, function(index, item) {
+      ul.append($('<li>').text(item).attr('onclick', 'disp(this.textContent)'));
+    });
+    $('#search').append(ul);
+    });
+}
+
 </script>
 
   
@@ -62,54 +166,65 @@
       <tr>
         <td>
           <div class="form-group">
-            <p class="lead text-center">Please Select the Nation</p>
+            <p>Please Select the Nation</p>
             <select  class="form-select selectpicker" data-live-search="true" id="my_dropdown">
                 <option value="">Select an option</option>
               </select>
           </div>
         </td>
         <td>
-          <button type="button" class="btn btn-primary btn-search">Search</button>
+          <button type="button" class="btn btn-primary btn-search" onclick="nationquery()">Search</button>
         </td>
       </tr>
       <tr>
         <td>
           <div class="form-group">
-            <select class="form-select selectpicker" data-live-search="true" title="Category">
-              {% for category in categories %}
-              <option value="{{category}}">{{category}}</option>
-              {% endfor %}
+            <p>please select the year</p>
+            <select class="form-select selectpicker" data-live-search="true" title="year", id="my_dropdown2">
+              <option value="">Select an option</option>
             </select>
           </div>
         </td>
         <td>
-          <button type="button" class="btn btn-primary btn-search">Search</button>
+          <button type="button" class="btn btn-primary btn-search" onclick="yearquery()">Search</button>
         </td>
       </tr>
       <tr>
         <td>
           <div class="form-group">
-            <select class="form-select selectpicker" data-live-search="true" title="Year">
-              {% for year in years %}
-              <option value="{{year}}">{{year}}</option>
-              {% endfor %}
+            <p>please select a category</p>
+            <select class="form-select selectpicker" data-live-search="true" title="categories", id="my_dropdown3">
+              <option value="">Select an option</option>
             </select>
           </div>
         </td>
         <td>
-          <button type="button" class="btn btn-primary btn-search">Search</button>
+          <button type="button" class="btn btn-primary btn-search" onclick="categoryquery()">Search</button>
         </td>
       </tr>
       <tr>
-        <td colspan="2">
+        <td>
           <div class="form-group">
-            <select class="form-select selectpicker" data-live-search="true" title="Category" data-actions-box="true" multiple>
-              {% for category in categories %}
-              <option value="{{category}}">{{category}}</option>
-              {% endfor %}
+            <p>please select a year and category</p>
+            <select class="form-select selectpicker" data-live-search="true" title="categories", id="my_dropdown4">
+              <option value="">Select an option</option>
+            </select>
+            <select class="form-select selectpicker" data-live-search="true" title="year", id="my_dropdown5">
+              <option value="">Select an option</option>
             </select>
           </div>
-          <div class="form-group">
-            
+        </td>
+        <td>
+          <button type="button" class="btn btn-primary btn-search" onclick="yearcaterquery()">Search</button>
+        </td>
+      </tr>
+      <tr>
+        
+      </tr>
+      </tbody>
+      </table>
+      <h1>search results:</h1>
+      <div id="search"></div>
+      
   </body>
   </html>

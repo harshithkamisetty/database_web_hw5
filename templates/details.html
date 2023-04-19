@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>My Webpage</title>
+    <style>
+        /* General styles */
+body {
+	font-family: Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+	background-color: #f1f1f1;
+}
+
+/* Header styles */
+header {
+	background-color: #333;
+	color: #fff;
+	padding: 10px;
+}
+
+nav ul {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav li {
+	display: inline-block;
+	margin-right: 20px;
+}
+
+nav a {
+	color: #fff;
+	text-decoration: none;
+	font-size: 18px;
+}
+
+/* Main styles */
+main {
+	max-width: 800px;
+	margin: 0 auto;
+	padding: 20px;
+}
+
+.container {
+	background-color: #fff;
+	padding: 40px;
+	box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+h1 {
+	font-size: 36px;
+	margin-bottom: 20px;
+	text-align: center;
+	color: #333;
+}
+
+.details {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+}
+
+.photo {
+	margin-right: 40px;
+}
+
+.photo img {
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.info {
+	font-size: 18px;
+	line-height: 1.5;
+	color: #666;
+}
+
+.info p {
+	margin-bottom: 10px;
+}
+
+.info strong {
+	font-weight: bold;
+	color: #333;
+}
+
+/* Responsive styles */
+@media only screen and (max-width: 600px) {
+	main {
+		padding: 10px;
+	}
+
+	.container {
+		padding: 20px;
+	}
+
+	.details {
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+	}
+
+}
+
+    </style>
+</head>
+<body>
+	<header>
+		<nav>
+			<ul>
+				<li><a href="/">Home</a></li>
+			</ul>
+		</nav>
+	</header>
+	<main>
+		<div class="container">
+			<h1>Details</h1>
+			<div class="details">
+				<div class="info">
+					<p><strong>Name:</strong> {{name}}</p>
+					<p><strong>Nationality</strong> {{nation}}</p>
+					<p><strong>Category:</strong> {{cate}}</p>
+                    
+					<p><strong>Nobel Awarded Year:</strong> {{awardyear}}</p>
+					<p><strong>Association</strong> {{Asso}}</p>
+					<p><strong>Birth Year:</strong> {{byear}}</p>
+                    <p><strong>Death Year:</strong> {{dyear}}</p>
+					<p><strong>Motivation:</strong> {{Motivation}}</p>
+					<p><strong>Photo URL:</strong> {{Photo}}</p>
+                    
+				</div>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
