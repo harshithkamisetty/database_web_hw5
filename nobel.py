@@ -12,6 +12,7 @@ app = Flask(__name__)
 
 #GET: Return sorted names of all nations
 #list_nations api
+@app.route('/nobel/nations')
 def list_nations():
     qres = g.query(
             """
@@ -35,6 +36,7 @@ def list_nations():
 
 
 #GET: Return sorted names of all nobel categories
+@app.route('/nobel/categories')
 def sorted_names_categories():
     qureyresult = g.query(
             """
@@ -58,6 +60,7 @@ def sorted_names_categories():
 
 
 #GET: Return sorted years nobels are awarded
+@app.route('/nobel/years')
 def list_years():
     qureyresult = g.query(
             """
