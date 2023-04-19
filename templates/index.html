@@ -7,6 +7,8 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.14.0/css/bootstrap-select.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
   <style>
     .container {
       max-width: 800px;
@@ -33,21 +35,22 @@
 </head>
 
   
-  <script>
-    $document.ready(function() {
-      $.get('/nobel/nations', function(data) {
-        console.log("hello")
-        var options = data;
-        var dropdown = $('#my_dropdown');
-        $.each(options, function(index, value) {
-          dropdown.append($('<option/>', {
-            value: value,
-            text: value
-          }));
-        });
+<script>
+  $(document).ready(function() {
+    $.get('/nobel/nations', function(data) {
+      console.log("hello")
+      var options = data;
+      var dropdown = $('#my_dropdown');
+      $.each(options, function(index, value) {
+        dropdown.append($('<option/>', {
+          value: value,
+          text: value
+        }));
       });
     });
-  </script>
+  });
+</script>
+
   
 <body>
 
@@ -59,11 +62,7 @@
       <tr>
         <td>
           <div class="form-group">
-            <select class="form-select selectpicker" data-live-search="true" title="Nationality">
-           
-              <option value="{{nation}}">{{nation}}</option>
-            
-            </select>
+            <p class="lead text-center">Please Select the Nation</p>
             <select  class="form-select selectpicker" data-live-search="true" id="my_dropdown">
                 <option value="">Select an option</option>
               </select>
